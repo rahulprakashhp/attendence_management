@@ -1,14 +1,18 @@
-# Use the official PHP image with Apache
+# Use the official PHP + Apache image
 FROM php:8.2-apache
 
-# Copy project files to the container
-COPY . /var/www/html/
+# Install PostgreSQL PDO driver
+RUN apt-get update && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql
 
-# Enable Apache mod_rewrite (optional, but helpful for routing)
+# Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
-# Set file permissions (optional but recommended)
+# Copy your project files to the Apache server root
+COPY . /var/www/html/
+
+# Optional: Fix permissions
 RUN chown -R www-data:www-data /var/www/html
 
-# Expose port 80 (default for Apache)
+# Expose default web port
 EXPOSE 80

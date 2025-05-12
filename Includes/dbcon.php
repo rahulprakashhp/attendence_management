@@ -1,11 +1,9 @@
 <?php
-	$host = "localhost";
-	$user = "root";
-	$pass = "";
-	$db = "attendancemsystem";
-	
-	$conn = new mysqli($host, $user, $pass, $db);
-	if($conn->connect_error){
-		echo "Seems like you have not configured the database. Failed To Connect to database:" . $conn->connect_error;
-	}
+$host = "your-db-host";
+$user = "your-db-user";
+$pass = "your-db-pass";
+$db = "your-db-name";
+$port = "5432"; // PostgreSQL
+
+$conn = new PDO("pgsql:host=$host;port=$port;dbname=$db;", $user, $pass);
 ?>
